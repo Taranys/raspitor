@@ -21,9 +21,8 @@ public class StatSender extends Verticle {
                 try {
                     vertx.eventBus().send("web.client", getSystemInfo());
                 } catch (Exception e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    e.printStackTrace();
                 }
-                getContainer().logger().info("Message sent");
             }
         });
 
@@ -55,7 +54,7 @@ public class StatSender extends Verticle {
 
         if (!scanner.hasNextLine()) return data;
         String cpuLine = scanner.nextLine();
-        data.putNumber("avgCpu", Double.parseDouble(cpuLine.substring(9, 13).trim()));
+//        data.putNumber("avgCpu", Double.parseDouble(cpuLine.substring(9, 13).trim()));
 
         if (!scanner.hasNextLine()) return data;
         String memLine = scanner.nextLine();
@@ -80,16 +79,19 @@ public class StatSender extends Verticle {
         String titleLine = scanner.nextLine();
 
         JsonArray array = new JsonArray();
+        double cpu = 0.0;
         while (scanner.hasNextLine()) {
             JsonObject object = new JsonObject();
             String topLine = scanner.nextLine();
             object.putNumber("pid", Integer.parseInt(topLine.substring(0, 6).trim()));
             object.putString("user", topLine.substring(6, 16).trim());
             object.putNumber("cpu", Double.parseDouble(topLine.substring(42, 46).trim()));
+            cpu += object.getNumber("cpu").doubleValue();
             object.putNumber("mem", Double.parseDouble(topLine.substring(46, 51).trim()));
             object.putString("command", topLine.substring(62, topLine.length()).trim());
             array.add(object);
         }
+        data.putNumber("avgCpu", cpu);
 
         data.putArray("topProc", array);
 
