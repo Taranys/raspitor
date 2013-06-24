@@ -15,13 +15,6 @@ public class RaspitorApp extends Verticle {
         super.start();
 
         RouteMatcher routeMatcher = new RouteMatcher();
-        routeMatcher.get("/details/:user/:id", new Handler<HttpServerRequest>() {
-            @Override
-            public void handle(HttpServerRequest event) {
-                event.response().end(String.format("User: %s ID: %s", event.params().get("user"), event.params().get("id")));
-            }
-        });
-
         routeMatcher.get("/", new Handler<HttpServerRequest>() {
             @Override
             public void handle(HttpServerRequest event) {
@@ -29,7 +22,7 @@ public class RaspitorApp extends Verticle {
             }
         });
 
-        routeMatcher.getWithRegEx(".*", new Handler<HttpServerRequest>() {
+        routeMatcher.noMatch(new Handler<HttpServerRequest>() {
             @Override
             public void handle(HttpServerRequest event) {
                 event.response().sendFile("web/" + event.path());
@@ -49,7 +42,7 @@ public class RaspitorApp extends Verticle {
 
         getContainer().logger().info("SockJS bridge created");
 
-        httpServer.listen(8080);
+        httpServer.listen(1235);
 
         getContainer().logger().info("Server listening");
 
