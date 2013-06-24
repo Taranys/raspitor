@@ -1,0 +1,73 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+modowner = "com.raspitor"
+modname = "raspitor"
+version = "0.0.1-SNAPSHOT"
+pullInDeps = true
+produceJar = false
+vertxVersion = "2.0.0-CR1"
+toolsVersion = "2.0.0-CR1"
+
+group = modowner
+archivesBaseName = modname
+
+defaultTasks = ['assemble']
+
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
+
+project.ext.moduleName = "$modowner~$modname~$version"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "io.vertx:vertx-core:2.0.0-CR1"
+    compile "io.vertx:vertx-platform:2.0.0-CR1"
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "io.vertx:vertx-core:2.0.0-CR1"
+        classpath "io.vertx:vertx-platform:2.0.0-CR1"
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir "src/java"
+        }
+    }
+}
+
+task copyMod(type: Copy, dependsOn: 'classes', description: 'Assemble the module into the local mods directory') {
+    into("mods/$moduleName")
+    from compileJava
+    from 'src/mod.json'
+
+    into('lib') {
+        from configurations.compile
+    }
+    into('web') {
+        from 'src/web'
+    }
+}
+
+task modZip(type: Zip, dependsOn: 'copyMod', description: 'Package the module .zip file') {
+    group = 'vert.x'
+    description = "Assembles a vert.x module"
+    destinationDir = project.file('mods')
+    archiveName = "${modname}-${version}" + ".zip"
+    from copyMod
+}
+
+artifacts {
+    archives modZip
+}

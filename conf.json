@@ -1,0 +1,13 @@
+{
+    "bridge": true,
+    "inbound_permitted": [
+        []
+    ],
+    "outbound_permitted": [
+        [
+            {
+                "address": "web.client"
+            }
+        ]
+    ]
+}

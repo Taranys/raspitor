@@ -1,0 +1,88 @@
+<html>
+<head>
+    <script src="js/jquery-1.9.0.min.js"></script>
+    <script src="js/jquery.knob.js"></script>
+    <script src="js/handlebars-1.0.rc.1.js"></script>
+    <script src="js/sockjs-0.2.1.min.js"></script>
+    <script src="js/vertxbus.js"></script>
+    <script src="js/client.js"></script>
+    <style type="text/css">
+        td {
+            text-align: center;
+        }
+
+        .wrapper {
+            width: 1000px;
+        }
+
+        .stats {
+            margin-left: 20px;
+            width: 200px;
+            float: right;
+        }
+
+        .process {
+            margin-left: 20px;
+            width: 300px;
+            float: right;
+        }
+
+    </style>
+</head>
+<body>
+<script id="stats-template" type="text/x-handlebars-template">
+    <h3>Statistics</h3>
+    <span>Tasks: {{tasks}}</span> <br/>
+    <span>Mem: {{memPerc}}</span> <br/>
+    <span>Used: {{memUsed}}</span> <br/>
+    <span>Free: {{memFree}}</span> <br/>
+</script>
+
+<script id="process-template" type="text/x-handlebars-template">
+    <table>
+        <thead>
+        <th>PID</th>
+        <th>User</th>
+        <th>CPU</th>
+        <th>Mem</th>
+        <th>Command</th>
+        </thead>
+        <tbody class="processes">
+        {{#each topProc}}
+        <tr>
+            <td>{{pid}}</td>
+            <td>{{user}}</td>
+            <td>{{cpu}}</td>
+            <td>{{mem}}</td>
+            <td>{{command}}</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</script>
+
+<div class="wrapper">
+    <div id="processes" class="process">
+    </div>
+    <div id="stats" class="stats">
+    </div>
+    <table>
+        <tr>
+            <td>
+                <input class="meter memPerc" data-angleOffset=-125 data-angleArc=250 data-width=200 data-readOnly=true
+                       data-min="0" data-max="100">
+            </td>
+            <td>
+                <input class="meter cpuPerc" data-angleOffset=-125 data-angleArc=250 data-width=200 data-readOnly=true
+                       data-min="0" data-max="100">
+            </td>
+        </tr>
+        <tr>
+            <td>MEM</td>
+            <td>CPU</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
