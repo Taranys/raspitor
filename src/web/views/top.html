@@ -1,0 +1,41 @@
+<div>
+    <div class="hero-unit">
+        <div class="row">
+            <div class="span4">
+                <canvas id="cpuChart"></canvas>
+            </div>
+            <div class="span4">
+                <h1>Raspitor</h1>
+
+                <p>Manage your little thing :)</p>
+            </div>
+            <div class="span4">
+
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <table class="table table-hover table-striped">
+            <thead>
+            <th>PID</th>
+            <th>User</th>
+            <th>CPU</th>
+            <th>Mem</th>
+            <th>Command</th>
+            </thead>
+            <tbody class="processes">
+            <tr ng-repeat="topLine in topData.topProc">
+                <td>{{topLine.pid}}</td>
+                <td>{{topLine.user}}</td>
+                <td>{{topLine.cpu}}</td>
+                <td>{{topLine.mem}}</td>
+                <td>{{topLine.command}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+</div>

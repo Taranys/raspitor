@@ -6,6 +6,7 @@ import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.platform.Verticle;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -32,18 +33,24 @@ public class StatSender extends Verticle {
     public JsonObject getSystemInfo() throws Exception {
         JsonObject data = new JsonObject();
 
-        ProcessBuilder processBuilder = new ProcessBuilder(Arrays.asList("top", "-b", "-n", "1"));
-        Process top = processBuilder.start();
-        top.waitFor();
-        BufferedReader br = new BufferedReader(new InputStreamReader(top.getInputStream()));
-        StringBuilder builder = new StringBuilder();
-        String line = null;
-        while ((line = br.readLine()) != null) {
-            builder.append(line);
-            builder.append(System.getProperty("line.separator"));
+        Scanner scanner = null;
+
+        if (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0) {
+            scanner = new Scanner(new File("C:/ps_output.txt"));
+        } else {
+            ProcessBuilder processBuilder = new ProcessBuilder(Arrays.asList("top", "-b", "-n", "1"));
+            Process top = processBuilder.start();
+            top.waitFor();
+            BufferedReader br = new BufferedReader(new InputStreamReader(top.getInputStream()));
+            StringBuilder builder = new StringBuilder();
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                builder.append(line);
+                builder.append(System.getProperty("line.separator"));
+            }
+            String result = builder.toString();
+            scanner = new Scanner(result.replaceAll(",", "."));
         }
-        String result = builder.toString();
-        Scanner scanner = new Scanner(result.replaceAll(",", "."));
 
         if (!scanner.hasNextLine()) return data;
         String firstLine = scanner.nextLine();
