@@ -1,87 +1,141 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <script src="js/jquery-1.9.0.min.js"></script>
-    <script src="js/jquery.knob.js"></script>
-    <script src="js/handlebars-1.0.rc.1.js"></script>
-    <script src="js/sockjs-0.2.1.min.js"></script>
-    <script src="js/vertxbus.js"></script>
-    <script src="js/client.js"></script>
-    <style type="text/css">
-        td {
-            text-align: center;
-        }
+    <title>Raspitor</title>
 
-        .wrapper {
-            width: 1000px;
-        }
+    <link rel=stylesheet type="text/css" href="lib/bootstrap/css/bootstrap.css">
+    <link rel=stylesheet type="text/css" href="lib/bootstrap/css/bootstrap-responsive.css">
 
-        .stats {
-            margin-left: 20px;
-            width: 200px;
-            float: right;
-        }
-
-        .process {
-            margin-left: 20px;
-            width: 300px;
-            float: right;
-        }
-
-    </style>
+    <script type="text/javascript" src="js/client.js"></script>
+    <script type="text/javascript" src="js/sockjs-0.2.1.min.js"></script>
+    <script type="text/javascript" src="js/vertxbus.js"></script>
+    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>-->
+    <script type="text/javascript" src="lib/bootstrap/js/bootstrap.js"></script>
 </head>
-<body>
-<script id="stats-template" type="text/x-handlebars-template">
-    <h3>Statistics</h3>
-    <span>Tasks: {{tasks}}</span> <br/>
-    <span>Mem: {{memPerc}}</span> <br/>
-    <span>Used: {{memUsed}}</span> <br/>
-    <span>Free: {{memFree}}</span> <br/>
-</script>
 
-<script id="process-template" type="text/x-handlebars-template">
-    <table>
-        <thead>
-        <th>PID</th>
-        <th>User</th>
-        <th>CPU</th>
-        <th>Mem</th>
-        <th>Command</th>
-        </thead>
-        <tbody class="processes">
-        {{#each topProc}}
-        <tr>
-            <td>{{pid}}</td>
-            <td>{{user}}</td>
-            <td>{{cpu}}</td>
-            <td>{{mem}}</td>
-            <td>{{command}}</td>
-        </tr>
-        {{/each}}
-        </tbody>
-    </table>
-</script>
+<body class="home">
+<div class="nav">
+    <div class="container">
+        <a href="/" class="logo"><img src="logo.png"></a>
+        <a href="https://status.yoannprot.fr" class="back">‹ Raspitor</a>
+    </div>
+    <div class="header">
+        <h1>Raspitor</h1>
 
-<div class="wrapper">
-    <div id="processes" class="process">
+        <p>Monitor your little thing !</p>
     </div>
-    <div id="stats" class="stats">
+    <a name="welcome"></a>
+</div>
+
+<div class="container main">
+    <div class="row">
+        <div class="span3 side">
+            <ul>
+                <li><h5>Status</h5></li>
+                <li class="n-pid"><a href="/#pid">Pid</a></li>
+                <!--<li class="n-policy"><a href="/policy/">API Policy</a></li>-->
+                <!--<li class="n-apps"><a href="/apps/">App Gallery</a></li>-->
+                <!--<li><h5>Resources</h5></li>-->
+                <!--<li class="n-github"><a href="https://github.com/kippt" target="_blank">Github</a></li>-->
+                <!--<li class="n-doc"><a href="https://github.com/kippt/api-documentation" target="_blank">Documentation</a></li>-->
+                <!--<li class="n-mailing"><a href="https://groups.google.com/forum/?fromgroups#!forum/kippt-developers" target="_blank">Mailing List</a></li>-->
+            </ul>
+        </div>
+        <div class="span8 offset1 content">
+
+
+            <!--<h1>Welcome to the Kippt API</h1>-->
+
+            <!--<p>Below you can find reference documentation and resources for the Kippt API.If you're planning to implement Kippt into your app, we would like to hear about you. Feedback and improvements are always welcome.</p>-->
+
+            <!--<ul class="row docs">-->
+            <!--<li class="span4">-->
+            <!--<a href="https://github.com/kippt/api-documentation" target="_blank" class="api">-->
+            <!--<strong>Api Documentation</strong><br/>-->
+            <!--View on GitHub-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--<li class="span4">-->
+            <!--<a href="https://github.com/kippt" target="_blank" class="code">-->
+            <!--<strong>Developer resources</strong><br/>-->
+            <!--Kippt's open source resources-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+
+            <!--<hr>-->
+
+            <!--<h2>API Mailing list</h2>-->
+
+            <!--<p>If you use Kippt's API, we invite you to join our <a href="https://groups.google.com/forum/?fromgroups#!forum/kippt-developers">mailing list</a>. It's used for communicating changes and answering questions related to the API. To contact us directly, email us at hello@kippt.com.</p>-->
+
+            <!--<hr>-->
+
+            <!--<h2 id="apitoken">API Token</h2>-->
+
+            <!--<p>Some apps also support API token authentication and it's useful for scripts when you don't want to save your password in plain text. You can always request your API key from the API or you can copy it from here:</p>-->
+
+            <!--<p>-->
+            <!--<strong>Your API token:</strong> <iframe src="https://kippt.com/accounts/api_token/" class="token"></iframe>-->
+            <!--</p>-->
+
+            <!--<hr>-->
+
+            <!--<h2><a href="/apps">App Gallery</a></h2>-->
+
+            <!--<ul class="row apps">-->
+            <!--<li class="span4">-->
+            <!--<a href="/apps/kippster">-->
+            <!--<div class="icon">-->
+            <!--<img src="/static/apps/kippster/logo.png">-->
+            <!--</div>-->
+            <!--<p>-->
+            <!--<strong>Kippster</strong><br>-->
+            <!--<span>by Alex Robinson &middot; iOS</span>-->
+            <!--<p>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--<li class="span4">-->
+            <!--<a href="/apps/feedleap">-->
+            <!--<div class="icon">-->
+            <!--<img src="/static/apps/feedleap/logo.png">-->
+            <!--</div>-->
+            <!--<p>-->
+            <!--<strong>Feedleap</strong><br>-->
+            <!--<span>by José Padilla &middot; <span>Web</span></span>-->
+            <!--</p>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+
+            <!--<a href="/apps" class="more">View more apps in the Gallery ›</a>-->
+
+            <!--<script type="text/javascript">-->
+            <!--$(document).ready(function(){-->
+            <!--$(window).bind('scroll',function(e){-->
+            <!--parallaxScroll();-->
+            <!--});-->
+            <!--function parallaxScroll(){-->
+            <!--var scrolledY = $(window).scrollTop();-->
+            <!--$('.home .header').css({-->
+            <!--'top' : (scrolledY*0.53)+"px",-->
+            <!--'opacity' : 1-(scrolledY/266)-->
+            <!--});-->
+            <!--}-->
+            <!--});-->
+            <!--</script>-->
+
+
+        </div>
     </div>
-    <table>
-        <tr>
-            <td>
-                <input class="meter memPerc" data-angleOffset=-125 data-angleArc=250 data-width=200 data-readOnly=true
-                       data-min="0" data-max="100">
-            </td>
-            <td>
-                <input class="meter cpuPerc" data-angleOffset=-125 data-angleArc=250 data-width=200 data-readOnly=true
-                       data-min="0" data-max="100">
-            </td>
-        </tr>
-        <tr>
-            <td>MEM</td>
-            <td>CPU</td>
-        </tr>
-    </table>
+</div>
+
+<div class="footer">
+    <p>
+        <a href="http://www.angularjs.org/">AngularJS</a>
+    </p>
+
+    <p>Raspitor for Everyone</p>
 </div>
 
 </body>
