@@ -1,24 +1,18 @@
 <div>
     <div class="hero-unit">
-        <div class="row">
-            <div class="span4">
-                <canvas id="cpuChart"></canvas>
-            </div>
-            <div class="span4">
+        <div class="row-fluid">
+            <div class="span6">
                 <h1>Raspitor</h1>
-
                 <p>Manage your little thing :)</p>
             </div>
-            <div class="span4">
-
+            <div class="pull-right">
+                <span id="cpuGaugeContainer"></span>
+                <span id="memoryGaugeContainer"></span>
             </div>
         </div>
     </div>
 
     <div>
-        <figure id="chart" style="height: 300px;">
-        </figure>
-
         <table class="table table-hover table-striped">
             <thead>
             <th>PID</th>
@@ -28,7 +22,7 @@
             <th>Command</th>
             </thead>
             <tbody class="processes">
-            <tr ng-repeat="topLine in topData.topProc">
+            <tr ng-repeat="topLine in topData.topProc | filter:filterTop">
                 <td>{{topLine.pid}}</td>
                 <td>{{topLine.user}}</td>
                 <td>{{topLine.cpu}}</td>
