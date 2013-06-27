@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="vertx-core-2.0.0-CR1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/artifacts-24/filestore/io.vertx/vertx-core/2.0.0-CR1/jar/9252647e09e323fd1ae61f756f2e871e442b1db2/vertx-core-2.0.0-CR1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/artifacts-24/filestore/io.vertx/vertx-core/2.0.0-CR1/source/5c28b30f538bf9d3edc786cdf965cacd5118c1e2/vertx-core-2.0.0-CR1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
