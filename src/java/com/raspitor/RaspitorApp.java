@@ -10,42 +10,42 @@ import org.vertx.java.core.sockjs.SockJSServer;
 import org.vertx.java.platform.Verticle;
 
 public class RaspitorApp extends Verticle {
-    @Override
-    public void start() {
-        super.start();
+  @Override
+  public void start() {
+    super.start();
 
-        RouteMatcher routeMatcher = new RouteMatcher();
-        routeMatcher.get("/", new Handler<HttpServerRequest>() {
-            @Override
-            public void handle(HttpServerRequest event) {
-                event.response().sendFile("web/index.html");
-            }
-        });
+    RouteMatcher routeMatcher = new RouteMatcher();
+    routeMatcher.get("/", new Handler<HttpServerRequest>() {
+      @Override
+      public void handle(HttpServerRequest event) {
+        event.response().sendFile("web/index.html");
+      }
+    });
 
-        routeMatcher.noMatch(new Handler<HttpServerRequest>() {
-            @Override
-            public void handle(HttpServerRequest event) {
-                event.response().sendFile("web/" + event.path());
-            }
-        });
+    routeMatcher.noMatch(new Handler<HttpServerRequest>() {
+      @Override
+      public void handle(HttpServerRequest event) {
+        event.response().sendFile("web/" + event.path());
+      }
+    });
 
-        HttpServer httpServer = vertx.createHttpServer();
-        httpServer.requestHandler(routeMatcher);
+    HttpServer httpServer = vertx.createHttpServer();
+    httpServer.requestHandler(routeMatcher);
 
-        getContainer().logger().info("Server created");
+    getContainer().logger().info("Server created");
 
-        SockJSServer sockJSServer = vertx.createSockJSServer(httpServer);
-        sockJSServer.bridge(new JsonObject().putString("prefix", "/eventbus"),
-                new JsonArray(),
-                new JsonArray().add(new JsonObject().putString("address", "web.client")),
-                5 * 60 * 1000);
+    SockJSServer sockJSServer = vertx.createSockJSServer(httpServer);
+    sockJSServer.bridge(new JsonObject().putString("prefix", "/eventbus"),
+            new JsonArray(),
+            new JsonArray().add(new JsonObject().putString("address", "web.client")),
+            5 * 60 * 1000);
 
-        getContainer().logger().info("SockJS bridge created");
+    getContainer().logger().info("SockJS bridge created");
 
-        httpServer.listen(1235);
+    httpServer.listen(getContainer().config().getInteger("port"));
 
-        getContainer().logger().info("Server listening");
+    getContainer().logger().info("Server listening");
 
-        container.deployVerticle(StatSender.class.getName());
-    }
+    container.deployVerticle(StatSender.class.getName());
+  }
 }

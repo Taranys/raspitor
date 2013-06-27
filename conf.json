@@ -1,4 +1,5 @@
 {
+    "port": 1235,
     "bridge": true,
     "inbound_permitted": [
         []

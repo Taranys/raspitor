@@ -3,6 +3,7 @@
         <div class="row-fluid">
             <div class="span6">
                 <h1>Raspitor</h1>
+
                 <p>Manage your little thing :)</p>
             </div>
             <div class="pull-right">
@@ -23,11 +24,11 @@
             </thead>
             <tbody class="processes">
             <tr ng-repeat="topLine in topData.topProc | filter:filterTop">
-                <td>{{topLine.pid}}</td>
-                <td>{{topLine.user}}</td>
-                <td>{{topLine.cpu}}</td>
-                <td>{{topLine.mem}}</td>
-                <td>{{topLine.command}}</td>
+                <td ng-bind="topLine.pid"></td>
+                <td ng-bind="topLine.user"></td>
+                <td ng-bind="topLine.cpu"></td>
+                <td ng-bind="topLine.mem"></td>
+                <td ng-bind="topLine.command"></td>
             </tr>
             </tbody>
         </table>
